@@ -36,7 +36,7 @@ const getAllDogs = async (name) => {
       return e;
     });
 
-    return [...dogsDBMap, ...allDogsApi];
+    return [ ...allDogsApi, ...dogsDBMap];
   }
   //-------------------------     BY NAME  --------------------------------------- //
   const apiName = await axios(
