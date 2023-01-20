@@ -3,8 +3,10 @@ import TEMPERAMENT from "../models/Temperaments.js";
 
 const getTemperament = async () => {
   const temperamentDB = await TEMPERAMENT.findAll();
-  if (temperamentDB.length > 20) return temperamentDB.map((e) => e.name);
+  return temperamentDB.map((e) => e.name);
+};
 
+export const createTableOfTemperaments = async () => {
   const api = await axios.get(`https://api.thedogapi.com/v1/breeds`);
   api.data
     .map((el) => el.temperament)
@@ -17,8 +19,6 @@ const getTemperament = async () => {
         where: { name },
       });
     });
-
-  return getTemperament();
 };
 
 export default getTemperament;

@@ -1,6 +1,7 @@
 import BREED from "../models/Dog.js";
 import TEMPERAMENT from "../models/Temperaments.js";
 import { v4 as uuidv4 } from "uuid";
+import { Op } from "sequelize";
 
 const createBreed = async (
   name,
@@ -20,10 +21,14 @@ const createBreed = async (
     isDB: true,
   });
   await temperament.map(async (t) => {
-    const temperament = await TEMPERAMENT.findOne({
-      where: { name:t },
+    const temp = await TEMPERAMENT.findOne({
+      where: { name:{
+        [Op.iLike]: `%${t}%`,
+      } },
     });
-    newDog.addTemperament(temperament);
+    console.log(temp);
+    console.log(t);
+    newDog.addTemperament(temp);
   });
 
   return newDog;
