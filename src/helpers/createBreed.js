@@ -20,8 +20,8 @@ const createBreed = async (
     isDB: true,
   });
   await temperament.map(async (t) => {
-    const [temperament, boolean] = await TEMPERAMENT.findOrCreate({
-      where: { name: t },
+    const temperament = await TEMPERAMENT.findOne({
+      where: { name:t },
     });
     newDog.addTemperament(temperament);
   });
